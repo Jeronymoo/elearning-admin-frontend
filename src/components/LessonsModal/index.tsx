@@ -11,7 +11,7 @@ interface LessonModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   courseId: string;
-  setData(object: FormProps): () => void;
+  setData: (data: FormInput) => void;
 }
 
 interface FormProps {
@@ -19,6 +19,14 @@ interface FormProps {
   description: string;
   video_id: string;
   duration: string;
+}
+
+interface FormInput {
+  id: string;
+  name: string;
+  duration: string;
+  description: string;
+  video_id: string;
 }
 
 export default function LessonModal({ isOpen, onRequestClose, courseId, setData }: LessonModalProps) {
@@ -32,7 +40,7 @@ export default function LessonModal({ isOpen, onRequestClose, courseId, setData 
       course_id: courseId
     });
     setData(response.data);
-    console.log(response.data);
+    
   }, [courseId, setData]);
 
   return(

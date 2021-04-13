@@ -54,6 +54,8 @@ const Lessons: React.FC = () => {
     setModal(true);
   }
 
+  // console.log(lessons);
+
   return (
     <>
     <Header />
@@ -73,12 +75,13 @@ const Lessons: React.FC = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         courseId={id}
+        setData={data => setLessons([...lessons, data])}
       ></LessonsModal>
     <Container>
       <LessonsList>
         {lessons.map(lesson => (
-          <LessonCard>
-            <button key={lesson.id} onClick={() => handleShowModal(lesson)}>
+          <LessonCard key={lesson.id}>
+            <button onClick={() => handleShowModal(lesson)}>
               <h1>{lesson.name}</h1>
               <small>Aula 01</small>
               <small>{lesson.duration}</small>
