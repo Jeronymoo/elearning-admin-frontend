@@ -57,6 +57,7 @@ const Dashboard: React.FC = () => {
       <CourseModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
+        setData={(data) => setCourses([...courses, data])}
       ></CourseModal>
       <CardArea>
         {courses.map(course => (
