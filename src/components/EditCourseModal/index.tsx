@@ -10,6 +10,7 @@ interface CourseModalProps {
   isOpen: boolean;
   onRequestClose: () => void;
   setData: (data: any) => void;
+  courseId: string;
 }
 
 interface IFile {
@@ -17,7 +18,7 @@ interface IFile {
   size: number;
 }
 
-export default function CourseModal({ isOpen, onRequestClose, setData }: CourseModalProps) {
+export default function CourseModal({ isOpen, onRequestClose, setData, courseId }: CourseModalProps) {
   const [image, setImage] = useState<IFile>();
 
   const onSubmit = useCallback(async (data) => {
@@ -25,13 +26,13 @@ export default function CourseModal({ isOpen, onRequestClose, setData }: CourseM
     formData.append("name", data.name);
     formData.append("image", data.image[0]);
 
-    const response = await api.post('courses', formData, {
+    const response = await api.put(`courses/${courseId}`, formData, {
       headers: {
         'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
       }
     })
     setData(response.data);
-  }, [setData]);
+  }, [setData, courseId]);
 
   const handleChange = (event: any) => {
     setImage(event.target.files[0]);

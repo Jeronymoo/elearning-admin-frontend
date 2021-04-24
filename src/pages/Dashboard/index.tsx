@@ -2,20 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Container, CardArea, CardContent, Info, Card } from "./styles";
-import { FiPlus, FiTrash, FiLogIn } from 'react-icons/fi'
+import { FiPlus, FiTrash, FiLogIn, FiEdit } from 'react-icons/fi'
 
 import api from "../../services/api";
-import mathImg from "../../assets/math.svg";
 import CourseModal from '../../components/CourseModal';
+import EditCourseModal from '../../components/EditCourseModal'
 
 interface Course {
   id: string;
   name: string;
+  image_path: string;
 }
 
 const Dashboard: React.FC = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [courseId, setCourseId] = useState('');
 
   async function handleDelete(id: string): Promise<void> {
     await api.delete(`courses/${id}`)
@@ -30,13 +33,22 @@ const Dashboard: React.FC = () => {
     setModalIsOpen(false);
   }
 
+  function closeEditModal() {
+    setEditModal(false);
+  }
+
+  function handleUpdate(id: string) {
+    setCourseId(id);
+    setEditModal(true);
+  }
+
   useEffect(() => {
     api.get("/courses").then((response) => {
       setCourses(response.data);
     }); 
   }, []);
 
-  console.log(courses);
+  // console.log(courses);
 
   return (
     <>
@@ -59,6 +71,13 @@ const Dashboard: React.FC = () => {
         onRequestClose={closeModal}
         setData={(data) => setCourses([...courses, data])}
       ></CourseModal>
+      <EditCourseModal 
+        isOpen={editModal}
+        onRequestClose={closeEditModal}
+        setData={(data) => setCourses(courses.map(course => 
+          course.id === data.id ? {...data} : course))}
+        courseId={courseId}
+      />
       <CardArea>
         {courses.map(course => (
           <Card key={course.id}>
@@ -69,7 +88,10 @@ const Dashboard: React.FC = () => {
               <Link to={`lessons/${course.id}`}>
                 <FiLogIn size={20} />
               </Link>
-              <img src={mathImg} alt=""/>
+              <button className="editing">
+                <FiEdit size={20} onClick={() => handleUpdate(course.id)} />
+              </button>
+              <img src={`http://localhost:3333/files/${course.image_path}`} alt=""/>
               <h2>{course.name}</h2>
               <p>15 aulas</p>
             </CardContent>

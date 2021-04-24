@@ -5,6 +5,7 @@ import { Container, Info, LessonsList, LessonArea, LessonCard } from "./styles";
 import { FiPlus, FiTrash, FiEdit } from 'react-icons/fi';
 
 import LessonsModal from '../../components/LessonsModal'
+import EditLessonsModal from '../../components/EditLessonsModal';
 
 import api from "../../services/api";
 
@@ -27,8 +28,10 @@ const Lessons: React.FC = () => {
 
   const [lessons, setLessons] = useState<LessonsL[]>([]);
   const [modal, setModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
   const [object, setObject] = useState<IObject>({} as IObject);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [lessonId, setLessonId] = useState('');
 
   async function handleDelete(id: string): Promise<void> {
     await api.delete(`lessons/${id}`)
@@ -43,6 +46,10 @@ const Lessons: React.FC = () => {
     setModalIsOpen(false);
   }
 
+  function closeEditModal() {
+    setEditModal(false);
+  }
+
   useEffect(() => {
     api.get(`lessons/${id}/lessons`).then((response) => {
       setLessons(response.data);
@@ -52,6 +59,12 @@ const Lessons: React.FC = () => {
   function handleShowModal(id: IObject) {
     setObject(id);
     setModal(true);
+  }
+
+  function handleUpdate(id: string) {
+    // console.log(id);
+    setLessonId(id);
+    setEditModal(true);
   }
 
   // console.log(lessons);
@@ -76,7 +89,14 @@ const Lessons: React.FC = () => {
         onRequestClose={closeModal}
         courseId={id}
         setData={data => setLessons([...lessons, data])}
-      ></LessonsModal>
+    />
+    <EditLessonsModal 
+      isOpen={editModal}
+      onRequestClose={closeEditModal}
+      lessonId={lessonId}
+      setData={(data) => setLessons(lessons.map(lesson => 
+        lesson.id === data.id ? {...data} : lesson))}
+    />
     <Container>
       <LessonsList>
         {lessons.map(lesson => (
@@ -88,7 +108,7 @@ const Lessons: React.FC = () => {
           </button>
           <div>
             <button>
-              <FiEdit />
+              <FiEdit onClick={() => handleUpdate(lesson.id)} />
             </button>
             <button onClick={() => handleDelete(lesson.id)}>
               <FiTrash />

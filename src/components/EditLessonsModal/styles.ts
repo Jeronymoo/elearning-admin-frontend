@@ -18,7 +18,7 @@ export const Container = styled.div`
 
     font-size: 1rem;
 
-    & + input[type="text"] {
+    & + input {
       margin-top: 1.5rem;
     }
   }

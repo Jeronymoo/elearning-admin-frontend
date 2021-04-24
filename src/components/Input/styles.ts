@@ -5,7 +5,7 @@ export const Container = styled.div`
   padding: 0.8rem 1rem;
   border-radius: 2rem;
   outline: none;
-  width: 20rem;
+  /* width: 20rem; */
   background: var(--principal);
 
   display: flex;

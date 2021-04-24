@@ -53,6 +53,10 @@ export const Card = styled.div`
 `;
 
 export const CardContent = styled.div`
+  .editing {
+    margin-top: 4rem;
+  }
+
   h2 {
     text-decoration: none;
     color: var(--text-tile);
