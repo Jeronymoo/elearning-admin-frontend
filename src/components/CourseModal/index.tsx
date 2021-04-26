@@ -4,7 +4,9 @@ import { FiX } from 'react-icons/fi';
 import Input from '../Input';
 import { useCallback, useMemo, useState } from 'react';
 import api from './../../services/api';
-import Form from '../Form';
+import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers';
 
 interface CourseModalProps {
   isOpen: boolean;
@@ -17,8 +19,15 @@ interface IFile {
   size: number;
 }
 
+const schema = Yup.object().shape({
+  name: Yup.string().required("Nome obrigatório"),
+});
+
 export default function CourseModal({ isOpen, onRequestClose, setData }: CourseModalProps) {
   const [image, setImage] = useState<IFile>();
+  const { handleSubmit, register, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
 
   const onSubmit = useCallback(async (data) => {
     const formData = new FormData();
@@ -59,17 +68,17 @@ export default function CourseModal({ isOpen, onRequestClose, setData }: CourseM
           <FiX size={24} color="#C4C4D1"/>
         </button>
         <Container>
-          <Form onSubmit={onSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <h2>Cadastrar curso</h2>
-            <Input name="name" placeholder="Nome" type="text"/>
+            <Input name="name" placeholder="Nome" type="text" error={errors.name?.message} ref={register}/>
             <label htmlFor="inputfile">Selecionar imagem</label>
-            <Input type="file" name="image" id="inputfile" onChange={handleChange} />
+            <Input type="file" name="image" id="inputfile" onChange={handleChange} ref={register}/>
             <ShowFile>
               <p>{image?.name}</p>
               <p>{handleImageSize}</p>
             </ShowFile>
             <button type="submit" onClick={handleReset}>Cadastrar</button>
-          </Form>
+          </form>
         </Container>
       </Modal>
   );

@@ -1,6 +1,9 @@
 import Modal from 'react-modal';
 import { Container } from './styles';
 import { FiX } from 'react-icons/fi';
+import * as Yup from 'yup';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers';
 
 import api from './../../services/api';
 import Form from '../Form';
@@ -29,7 +32,17 @@ interface FormInput {
   video_id: string;
 }
 
+const schema = Yup.object().shape({
+  name: Yup.string().required("Nome obrigatório"),
+  description: Yup.string().required("Descrição obrigatória"),
+  video_id: Yup.string().required("ID do vídeo obrigatório"),
+  duration: Yup.string().required("Duração obrigatória"),
+});
+
 export default function LessonModal({ isOpen, onRequestClose, courseId, setData }: LessonModalProps) {
+  const { handleSubmit, register, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
  
   const onSubmit = useCallback(async ({ name, description, video_id, duration }: FormProps) => {
     const response = await api.post('lessons', {
@@ -54,12 +67,12 @@ export default function LessonModal({ isOpen, onRequestClose, courseId, setData 
           <FiX size={24} color="#C4C4D1"/>
         </button>
         <Container>
-          <Form onSubmit={onSubmit}>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <h2>Cadastrar aula</h2>
-            <Input name="name" placeholder="Nome" type="text"/>
-            <Input name="description" placeholder="Descrição" type="text"/>
-            <Input name="video_id" placeholder="ID do Vídeo" type="text"/>
-            <Input name="duration" placeholder="Duração do Vídeo" type="text"/>
+            <Input name="name" placeholder="Nome" type="text" error={errors.name?.message} ref={register}/>
+            <Input name="description" placeholder="Descrição" type="text" error={errors.description?.message} ref={register}/>
+            <Input name="video_id" placeholder="ID do Vídeo" type="text" error={errors.video_id?.message} ref={register}/>
+            <Input name="duration" placeholder="Duração do Vídeo" type="text" error={errors.duration?.message} ref={register}/>
             <button type="submit">Cadastrar</button>
           </Form>
         </Container>

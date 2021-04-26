@@ -28,3 +28,8 @@ export const Container = styled.div`
     margin-right: 0.7rem;
   }
 `;
+
+export const Error = styled.p`
+  color: #c92c2c;
+  font-size: 0.9rem;
+`;

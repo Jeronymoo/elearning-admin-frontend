@@ -13,6 +13,7 @@ export const Container = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 0.4rem;
 
     input {
       width: 14rem;
