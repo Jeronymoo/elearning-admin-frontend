@@ -44,6 +44,8 @@ export const AuthProvider: React.FC = ({children}) => {
     localStorage.setItem('@elearning:token', token);
     localStorage.setItem('@elearning:user', JSON.stringify(user));
 
+    api.defaults.headers.authorization = `Bearer ${token}`;
+
     setData({ token, user })
   }, []);
 

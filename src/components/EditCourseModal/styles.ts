@@ -53,7 +53,6 @@ export const Container = styled.div`
     border-radius: 0.25rem;
     border: 0;
     font-size: 1rem;
-    margin-top: 1.5rem;
     transition: filter 0.2s;
 
     &:hover {
@@ -67,6 +66,6 @@ export const ShowFile = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  margin-top: 1.5rem;
+  margin-bottom: 1rem;
   color: var(--text-base);
 `;

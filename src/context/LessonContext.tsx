@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useState } from 'react';
 import api from '../services/api';
 
 interface LessonContextData {
-  lesson: string;
+  getCourses: () => void;
 }
 
 interface LessonState {
@@ -10,17 +10,27 @@ interface LessonState {
   amount: number;
 }
 
-const LessonContext = createContext<LessonContextData[]>([]);
+export const LessonContext = createContext<LessonContextData>({} as LessonContextData);
 
-export const LessonProver: React.FC = ({ children }) => {
+export const LessonProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<LessonState>({} as LessonState);
 
-  // const getLessons = useCallback(() => {
-  //   const response = await api.get('')
-  // }, []);
+  const getCourses = useCallback(async () => {
+    const coursesData = await api.get('courses')
+    const coursesResponseData = coursesData.data;
+    console.log(coursesResponseData);
+    // coursesResponseData.map(async (e: any) => {
+    //   const lessonsData = await api.get(`lessons/${e.id}/lessons`);
+    //   const lessonsResponseData = lessonsData.data;
+    //   console.log(lessonsResponseData);
+    // });
+    // const lessonsData = await api.get(`lessons/${coursesResponseData.id}/lessons`)
+
+
+  }, []);
 
   return (
-    <LessonContext.Provider value={[]}>
+    <LessonContext.Provider value={{ getCourses }}>
       {children}
     </LessonContext.Provider>
   );

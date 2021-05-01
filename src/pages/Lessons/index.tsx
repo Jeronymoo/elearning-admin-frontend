@@ -94,6 +94,7 @@ const Lessons: React.FC = () => {
       isOpen={editModal}
       onRequestClose={closeEditModal}
       lessonId={lessonId}
+      courseId={id}
       setData={(data) => setLessons(lessons.map(lesson => 
         lesson.id === data.id ? {...data} : lesson))}
     />

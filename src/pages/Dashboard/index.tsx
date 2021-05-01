@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Container, CardArea, CardContent, Info, Card } from "./styles";
 import { FiPlus, FiTrash, FiLogIn, FiEdit } from 'react-icons/fi'
 
+import { LessonContext } from "../../context/LessonContext";
 import api from "../../services/api";
 import CourseModal from '../../components/CourseModal';
 import EditCourseModal from '../../components/EditCourseModal'
@@ -15,6 +16,10 @@ interface Course {
 }
 
 const Dashboard: React.FC = () => {
+  const { getCourses } = useContext(LessonContext);
+
+  // getCourses();
+
   const [courses, setCourses] = useState<Course[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editModal, setEditModal] = useState(false);
