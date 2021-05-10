@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { Container, CardArea, CardContent, Info, Card } from "./styles";
 import { FiPlus, FiTrash, FiLogIn, FiEdit } from 'react-icons/fi'
 
-import { LessonContext } from "../../context/LessonContext";
 import api from "../../services/api";
 import CourseModal from '../../components/CourseModal';
 import EditCourseModal from '../../components/EditCourseModal'
@@ -13,13 +12,18 @@ interface Course {
   id: string;
   name: string;
   image_path: string;
+  lessons: ILessons[];
+}
+
+interface ILessons {
+  id: string;
+  name: string;
+  duration: string;
+  description: string;
+  video_id: string;
 }
 
 const Dashboard: React.FC = () => {
-  const { getCourses } = useContext(LessonContext);
-
-  // getCourses();
-
   const [courses, setCourses] = useState<Course[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editModal, setEditModal] = useState(false);
@@ -52,8 +56,6 @@ const Dashboard: React.FC = () => {
       setCourses(response.data);
     }); 
   }, []);
-
-  // console.log(courses);
 
   return (
     <>
@@ -98,7 +100,11 @@ const Dashboard: React.FC = () => {
               </button>
               <img src={`http://localhost:3333/files/${course.image_path}`} alt=""/>
               <h2>{course.name}</h2>
-              <p>15 aulas</p>
+              {course.lessons.length === 1 || undefined ? (
+                <p>{String(course.lessons.length).padStart(2, '0')} aula</p>
+              ) : (
+                <p>{String(course.lessons.length).padStart(2, '0')} aulas</p>
+              )}
             </CardContent>
           </Card>
         ))}

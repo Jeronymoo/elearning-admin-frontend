@@ -108,6 +108,7 @@ export const LessonCard = styled.div`
 
   button {
     margin-right: 1rem;
+    max-width: 250px;
   }
 
   h1 {
@@ -119,7 +120,6 @@ export const LessonCard = styled.div`
   small {
     display: inline-block;
     color: var(--text-inputs);
-    margin: 1rem 0.5rem 0 0;
   }
 
   div {
@@ -133,5 +133,18 @@ export const LessonCard = styled.div`
         filter: brightness(0.8);
       }
     }
+  }
+`;
+
+export const LessonInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1rem 0.5rem 0 0;
+
+  svg {
+    color: #C4C4D1;
+    margin: 0 0.2rem 0 0.8rem;
   }
 `;

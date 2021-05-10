@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Header } from "../../components/Header";
-import { Container, Info, LessonsList, LessonArea, LessonCard } from "./styles";
-import { FiPlus, FiTrash, FiEdit } from 'react-icons/fi';
+import { Container, Info, LessonsList, LessonArea, LessonCard, LessonInfo } from "./styles";
+import { FiPlus, FiTrash, FiEdit, FiClock } from 'react-icons/fi';
 
 import LessonsModal from '../../components/LessonsModal'
 import EditLessonsModal from '../../components/EditLessonsModal';
@@ -100,13 +100,16 @@ const Lessons: React.FC = () => {
     />
     <Container>
       <LessonsList>
-        {lessons.map(lesson => (
+        {lessons.map((lesson, index) => (
           <LessonCard key={lesson.id}>
             <button onClick={() => handleShowModal(lesson)}>
               <h1>{lesson.name}</h1>
-              <small>Aula 01</small>
-              <small>{lesson.duration}</small>
-          </button>
+              <LessonInfo>
+                <small>Aula {String(index + 1).padStart(2, '0')}</small>
+                <FiClock />
+                <small>{lesson.duration}</small>
+              </LessonInfo>
+            </button>
           <div>
             <button>
               <FiEdit onClick={() => handleUpdate(lesson.id)} />

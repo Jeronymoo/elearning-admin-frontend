@@ -1,5 +1,12 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 import api from '../services/api';
+import jwt from 'jwt-decode';
+
+interface TokenObject {
+  exp: number;
+  iat: number;
+  sub: string;
+}
 
 interface AuthState {
   token: string;
@@ -23,6 +30,15 @@ export const AuthProvider: React.FC = ({children}) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@elearning:token');
     const user = localStorage.getItem('@elearning:user');
+
+    if (token) {
+      const verifyToken = jwt(token) as TokenObject;
+      const currentDate = new Date();
+
+      if (verifyToken.exp * 1000 < currentDate.getTime()) {
+        return {} as AuthState;
+      }
+    }
 
     if (token && user) {
       api.defaults.headers.authorization = `Bearer ${token}`;
