@@ -62,12 +62,9 @@ const Lessons: React.FC = () => {
   }
 
   function handleUpdate(id: string) {
-    // console.log(id);
     setLessonId(id);
     setEditModal(true);
   }
-
-  // console.log(lessons);
 
   return (
     <>
@@ -110,15 +107,15 @@ const Lessons: React.FC = () => {
                 <small>{lesson.duration}</small>
               </LessonInfo>
             </button>
-          <div>
-            <button>
-              <FiEdit onClick={() => handleUpdate(lesson.id)} />
-            </button>
-            <button onClick={() => handleDelete(lesson.id)}>
-              <FiTrash />
-            </button>
-          </div>
-        </LessonCard>
+            <div>
+              <button>
+                <FiEdit onClick={() => handleUpdate(lesson.id)} />
+              </button>
+              <button onClick={() => handleDelete(lesson.id)}>
+                <FiTrash />
+              </button>
+            </div>
+          </LessonCard>
         ))}
       </LessonsList>
       {modal === true ? (
@@ -130,7 +127,6 @@ const Lessons: React.FC = () => {
           <p>{object.description}</p>
         </LessonArea>
       ) : <div></div> }
-
     </Container>
   </>
   );

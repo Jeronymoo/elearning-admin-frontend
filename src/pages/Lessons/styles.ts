@@ -106,7 +106,8 @@ export const LessonCard = styled.div`
       background: #f7f2ff;
   }
 
-  button {
+  button  {
+    flex: 1;
     margin-right: 1rem;
     max-width: 250px;
   }
