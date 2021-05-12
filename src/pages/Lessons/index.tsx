@@ -51,7 +51,7 @@ const Lessons: React.FC = () => {
   }
 
   useEffect(() => {
-    api.get(`lessons/${id}/lessons`).then((response) => {
+    api.get(`courses/${id}/lessons`).then((response) => {
       setLessons(response.data);
     }); 
   }, [id]);
