@@ -34,7 +34,7 @@ export default function LessonModal({ isOpen, onRequestClose, setData, lessonId,
   const { handleSubmit, register, setValue } = useForm();
 
   useEffect(() => {
-    api.get(`lessons/${courseId}/lessons`).then((response) => {
+    api.get(`courses/${courseId}/lessons`).then((response) => {
       const fullResponse = response.data;
       const lessonResponse = fullResponse.find((lesson: FormInput) => lesson.id === lessonId);
       if (lessonResponse) {

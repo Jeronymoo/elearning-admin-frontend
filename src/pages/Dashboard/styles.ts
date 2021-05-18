@@ -74,6 +74,7 @@ export const CardContent = styled.div`
   img {
     margin: 1.5rem 0 0 1rem;
     width: 100px;
+    height: 100px;
   }
 
   a {
