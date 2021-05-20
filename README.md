@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="elearning" title="elearning" src=".github/GithubLogo.png" />
+    <img alt="elearning" title="elearning" src=".github/GithubLogo.svg" />
 </h1>
 
 <p align="center">
@@ -29,7 +29,7 @@ E.learning é uma plataforma em que estudantes possam assistir aulas de várias 
 Clone o repositório e faça a instalação dos pacotes do projeto
 ```
 $ git clone https://github.com/Jeronymoo/elearning-admin-frontend.git
-$ elearning-admin-frontend
+$ cd elearning-admin-frontend
 $ yarn
 ```
 Com o <a href=#>back-end</a> configurado e rodando inicie o projeto
