@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="GoBarber" title="GoBarber" src=".github/Logo.png" />
+    <img alt="elearning" title="elearning" src=".github/GithubLogo.png" />
 </h1>
 
 <p align="center">

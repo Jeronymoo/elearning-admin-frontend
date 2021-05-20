@@ -100,10 +100,10 @@ const Dashboard: React.FC = () => {
               </button>
               <img src={`http://localhost:3333/files/${course.image_path}`} alt=""/>
               <h2>{course.name}</h2>
-              {course.lessons?.length ? (
+              {course.lessons?.length === 1 ? (
                 <p>{course.lessons?.length | 0} aula</p>
               ) : (
-                <p>{course.lessons?.length | 0} aulas</p>
+                <p>{course.lessons?.length} aulas</p>
               )}
             </CardContent>
           </Card>
