@@ -32,7 +32,7 @@ $ git clone https://github.com/Jeronymoo/elearning-admin-frontend.git
 $ cd elearning-admin-frontend
 $ yarn
 ```
-Com o <a href=#>back-end</a> configurado e rodando inicie o projeto
+Com o <a href=#>backend</a> configurado e rodando inicie o projeto
 ```
 $ yarn start
 ```
