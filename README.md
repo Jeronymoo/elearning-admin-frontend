@@ -22,7 +22,7 @@
 
 ## Projeto
 
-E.learning é uma plataforma em que estudantes possam assistir aulas de várias matérias, as quais se encontram classificadas.
+E.learning é uma plataforma que oferece cursos de diversas áreas de conhecimento, com um conteúdo em formato de videoaulas.
 
 ## Instalação e Uso
 
